@@ -10,6 +10,7 @@ from datetime import datetime
 load_dotenv()
 
 app = Flask(__name__)
+app.config['DEBUG'] = os.getenv("DEBUG", "False") == "True"
 app.secret_key = os.getenv("SECRET_KEY") or "tymczasowy-klucz-tylko-do-testow"
 
 # SMTP
