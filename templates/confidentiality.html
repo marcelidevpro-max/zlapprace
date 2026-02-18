@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ 'Polityka Poufności' if lang != 'en' else 'Confidentiality Policy' }}
+{% endblock %}
+
+{% block content %}
+<section class="py-20 px-5 bg-white">
+  <div class="max-w-4xl mx-auto">
+
+    <h1 class="text-4xl font-bold mb-10 text-center">
+      {{ 
+        'Polityka Poufności Materiałów Inwestorskich' 
+        if lang != 'en' 
+        else 'Investor Materials Confidentiality Policy' 
+      }}
+    </h1>
+
+    <div class="space-y-8 text-gray-700 leading-relaxed text-lg">
+
+      <p>
+        {{ 
+          'Niniejsza Polityka Poufności określa zasady dostępu do materiałów inwestorskich projektu Złap Pracę (dalej: „Projekt”).'
+          if lang != 'en'
+          else 'This Confidentiality Policy defines the rules governing access to investor materials of the Złap Pracę project (hereinafter: the “Project”).'
+        }}
+      </p>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '1. Charakter materiałów' if lang != 'en' else '1. Nature of Materials' }}
+      </h2>
+      <p>
+        {{
+          'Materiały inwestorskie, w tym Pitch Deck, prezentacje, prognozy finansowe oraz informacje strategiczne, mają charakter poufny i przeznaczone są wyłącznie do celów analizy potencjalnej inwestycji.'
+          if lang != 'en'
+          else 'Investor materials, including the Pitch Deck, presentations, financial projections, and strategic information, are confidential and provided solely for the purpose of evaluating a potential investment.'
+        }}
+      </p>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '2. Zakres poufności' if lang != 'en' else '2. Scope of Confidentiality' }}
+      </h2>
+      <p>
+        {{
+          'Odbiorca zobowiązuje się do:'
+          if lang != 'en'
+          else 'The recipient agrees to:'
+        }}
+      </p>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          {{ 'nieujawniania treści materiałów osobom trzecim,' if lang != 'en' else 'not disclose the materials to any third party,' }}
+        </li>
+        <li>
+          {{ 'niewykorzystywania informacji w celach konkurencyjnych,' if lang != 'en' else 'not use the information for competitive purposes,' }}
+        </li>
+        <li>
+          {{ 'niekopiowania ani nierozpowszechniania materiałów bez zgody właściciela Projektu.' if lang != 'en' else 'not copy or distribute the materials without prior consent of the Project owner.' }}
+        </li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '3. Brak oferty publicznej' if lang != 'en' else '3. No Public Offering' }}
+      </h2>
+      <p>
+        {{
+          'Materiały mają charakter wyłącznie informacyjny i nie stanowią oferty publicznej ani wiążącej propozycji inwestycyjnej.'
+          if lang != 'en'
+          else 'The materials are for informational purposes only and do not constitute a public offering or a binding investment proposal.'
+        }}
+      </p>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '4. Ograniczenie odpowiedzialności' if lang != 'en' else '4. Limitation of Liability' }}
+      </h2>
+      <p>
+        {{
+          'Projekt nie ponosi odpowiedzialności za decyzje inwestycyjne podjęte na podstawie udostępnionych materiałów.'
+          if lang != 'en'
+          else 'The Project shall not be liable for any investment decisions made based on the provided materials.'
+        }}
+      </p>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '5. Administrator danych' if lang != 'en' else '5. Data Controller' }}
+      </h2>
+      <p>
+        {{
+          'Dane osobowe podane w formularzu dostępu przetwarzane są wyłącznie w celu udostępnienia materiałów inwestorskich oraz kontaktu w sprawach związanych z potencjalną inwestycją.'
+          if lang != 'en'
+          else 'Personal data provided in the access form is processed solely for the purpose of granting access to investor materials and contacting you regarding potential investment matters.'
+        }}
+      </p>
+
+      <h2 class="text-2xl font-semibold">
+        {{ '6. Postanowienia końcowe' if lang != 'en' else '6. Final Provisions' }}
+      </h2>
+      <p>
+        {{
+          'Uzyskanie dostępu do materiałów inwestorskich oznacza akceptację niniejszej Polityki Poufności.'
+          if lang != 'en'
+          else 'Accessing the investor materials constitutes acceptance of this Confidentiality Policy.'
+        }}
+      </p>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
