@@ -191,5 +191,11 @@ def investor_access():
     session.close()
     return redirect(url_for("index"))
 
+@app.route("/confidentiality-policy")
+def confidentiality_policy():
+    lang = request.args.get("lang", "pl")
+    return render_template("confidentiality.html", lang=lang)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
