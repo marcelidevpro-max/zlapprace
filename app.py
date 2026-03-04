@@ -191,6 +191,15 @@ def confidentiality_policy():
     lang = request.args.get("lang", "pl")
     return render_template("confidentiality.html", lang=lang)
 
+from flask import send_from_directory
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('.', 'static/robots.txt')   # '.' = root projektu
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('.', 'static/sitemap.xml')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
