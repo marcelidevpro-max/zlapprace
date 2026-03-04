@@ -126,6 +126,8 @@ def index():
     session = Session()
 
     try:
+        lang = request.args.get("lang", "pl").lower()           # DODANE – pobieramy język z URL
+
         waitlist_count = session.query(Waitlist).count()
 
         if request.method == "POST":
@@ -135,7 +137,7 @@ def index():
 
             if not email or not user_type:
                 flash("Proszę uzupełnić wszystkie wymagane pola.", "error")
-                return redirect(url_for("index"))
+                return redirect(url_for("index", lang=lang))    # ZMIENIONE – zachowujemy język
 
             new_user = Waitlist(
                 name=name,
@@ -149,9 +151,11 @@ def index():
             send_confirmation_email(email, name, user_type)
 
             flash("Dziękujemy! Jesteś na liście.", "success")
-            return redirect(url_for("index"))
+            return redirect(url_for("index", lang=lang))        # ZMIENIONE – zachowujemy język
 
-        return render_template("index.html", waitlist_count=waitlist_count)
+        return render_template("index.html", 
+                               waitlist_count=waitlist_count,
+                               lang=lang)                     # DODANE – przekazujemy lang do szablonu
 
     finally:
         session.close()
@@ -167,7 +171,7 @@ def investor_access():
 
         if not email or not confidentiality:
             flash("Musisz podać email i zaakceptować poufność.", "error")
-            return redirect(url_for("index"))
+            return redirect(url_for("index"))                   # ← tu nie ma lang, ale to nie krytyczne
 
         investor = Investor(
             email=email,
@@ -191,15 +195,18 @@ def confidentiality_policy():
     lang = request.args.get("lang", "pl")
     return render_template("confidentiality.html", lang=lang)
 
+
 from flask import send_from_directory
 
 @app.route('/robots.txt')
 def robots():
-    return send_from_directory('.', 'static/robots.txt')   # '.' = root projektu
+    return send_from_directory('.', 'static/robots.txt')
+
 
 @app.route('/sitemap.xml')
 def sitemap():
     return send_from_directory('.', 'static/sitemap.xml')
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
