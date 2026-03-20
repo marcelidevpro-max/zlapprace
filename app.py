@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 from dotenv import load_dotenv
 import os
-from datetime import datetime
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
-from sqlalchemy.orm import declarative_base, sessionmaker
 import resend
 
 load_dotenv()
@@ -14,32 +11,6 @@ app.secret_key = os.getenv("SECRET_KEY") or "dev-key"
 
 # ===== RESEND CONFIG =====
 resend.api_key = os.getenv("RESEND_API_KEY")
-
-# ===== DATABASE =====
-DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-Session = sessionmaker(bind=engine)
-Base = declarative_base()
-
-
-class Waitlist(Base):
-    __tablename__ = "waitlist"
-    id = Column(Integer, primary_key=True)
-    name = Column(String(200))
-    email = Column(String(200))
-    user_type = Column(String(50))
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-
-class Investor(Base):
-    __tablename__ = "investors"
-    id = Column(Integer, primary_key=True)
-    email = Column(String(200))
-    accepted = Column(String(20))
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-
-Base.metadata.create_all(engine)
 
 
 # ===== EMAIL (API) =====
@@ -52,7 +23,6 @@ def send_email(to_email, subject, body, html=None):
             "html": html if html else f"<p>{body}</p>",
         })
         print(f"Email sent to {to_email}")
-
     except Exception as e:
         print("EMAIL API ERROR:", e)
 
@@ -123,71 +93,36 @@ https://zlapprace.pl
 # ===== ROUTES =====
 @app.route("/", methods=["GET", "POST"])
 def index():
-    session = Session()
+    lang = request.args.get("lang", "pl").lower()
 
-    try:
-        lang = request.args.get("lang", "pl").lower()           # DODANE – pobieramy język z URL
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        user_type = request.form.get("type", "")
 
-        waitlist_count = session.query(Waitlist).count()
-
-        if request.method == "POST":
-            name = request.form.get("name", "").strip()
-            email = request.form.get("email", "").strip()
-            user_type = request.form.get("type", "")
-
-            if not email or not user_type:
-                flash("Proszę uzupełnić wszystkie wymagane pola.", "error")
-                return redirect(url_for("index", lang=lang))    # ZMIENIONE – zachowujemy język
-
-            new_user = Waitlist(
-                name=name,
-                email=email,
-                user_type=user_type
-            )
-
-            session.add(new_user)
-            session.commit()
-
+        if not email or not user_type:
+            flash("Proszę uzupełnić wszystkie wymagane pola.", "error")
+        else:
             send_confirmation_email(email, name, user_type)
-
             flash("Dziękujemy! Jesteś na liście.", "success")
-            return redirect(url_for("index", lang=lang))        # ZMIENIONE – zachowujemy język
 
-        return render_template("index.html", 
-                               waitlist_count=waitlist_count,
-                               lang=lang)                     # DODANE – przekazujemy lang do szablonu
+        return redirect(url_for("index", lang=lang))
 
-    finally:
-        session.close()
+    return render_template("index.html", lang=lang)
 
 
 @app.route("/investor-access", methods=["POST"])
 def investor_access():
-    session = Session()
+    email = request.form.get("email", "").strip()
+    confidentiality = request.form.get("confidentiality")
 
-    try:
-        email = request.form.get("email", "").strip()
-        confidentiality = request.form.get("confidentiality")
-
-        if not email or not confidentiality:
-            flash("Musisz podać email i zaakceptować poufność.", "error")
-            return redirect(url_for("index"))                   # ← tu nie ma lang, ale to nie krytyczne
-
-        investor = Investor(
-            email=email,
-            accepted="yes"
-        )
-
-        session.add(investor)
-        session.commit()
-
-        send_pitch_password(email)
-
-        flash("Hasło zostało wysłane na email.", "success")
+    if not email or not confidentiality:
+        flash("Musisz podać email i zaakceptować poufność.", "error")
         return redirect(url_for("index"))
 
-    finally:
-        session.close()
+    send_pitch_password(email)
+    flash("Hasło zostało wysłane na email.", "success")
+    return redirect(url_for("index"))
 
 
 @app.route("/confidentiality-policy")
