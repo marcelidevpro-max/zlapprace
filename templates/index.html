@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
 
   <!-- SEO -->
   <title>Złap Pracę – aplikacja do znajdowania pracy i zleceń | platforma usług 2026</title>
@@ -10,7 +11,7 @@
   <meta name="keywords" content="praca, zlecenia, fachowcy, usługi lokalne, aplikacja praca, zlecenia Polska, znajdź fachowca" />
   <link rel="canonical" href="https://zlapprace.pl" />
 
-  <!-- Open Graph / Social -->
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Złap Pracę – aplikacja do znajdowania pracy i zleceń" />
   <meta property="og:description" content="Złap Pracę to aplikacja do znajdowania pracy i zleceń. Znajdź fachowców lub zdobywaj zlecenia w swojej okolicy." />
   <meta property="og:image" content="{{ url_for('static', filename='Ikona1.png') }}" />
@@ -19,7 +20,7 @@
   <meta property="og:locale" content="pl_PL" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- SEO: Schema -->
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -27,8 +28,7 @@
     "name": "Złap Pracę",
     "url": "https://zlapprace.pl",
     "logo": "https://zlapprace.pl/static/Ikona1.png",
-    "description": "Platforma do znajdowania pracy i zleceń w Polsce",
-    "sameAs": []
+    "description": "Platforma do znajdowania pracy i zleceń w Polsce"
   }
   </script>
 
@@ -40,30 +40,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; }
-    .hero-bg { background: linear-gradient(to bottom right, #0b3c5d, #2563eb); }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #f8fafc; }
+    .hero-bg { background: linear-gradient(135deg, #0b3c5d 0%, #2563eb 100%); }
     .card { transition: all 0.3s ease; }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12); }
-    input:focus, select:focus, button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
-    .screenshot-container { max-width: 480px; margin: 0 auto; }
-    .screenshot-container img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: opacity 0.4s; }
-    @media (max-width: 640px) { .screenshot-container { max-width: 340px; } }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); }
+    input:focus, select:focus, button:focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+    
+    /* Screenshot carousel */
+    .screenshot-container {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px -15px rgba(0,0,0,0.2);
+    }
+    .screenshot-container img {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+      pointer-events: none;
+    }
+    .screenshot-container img.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+    }
+    @media (max-width: 640px) {
+      .screenshot-container { max-width: 360px; }
+    }
   </style>
 </head>
 <body class="antialiased text-gray-900">
-
-  <!-- SEO: noscript -->
-  <noscript>
-    Złap Pracę – aplikacja do znajdowania pracy i zleceń w Polsce.
-  </noscript>
 
   <!-- Sticky Navbar -->
   <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
       <a href="/" class="text-2xl md:text-3xl font-bold text-blue-700 tracking-tight">Złap Pracę</a>
       <div class="flex items-center gap-4 md:gap-6">
-        <a href="?lang=pl" class="text-sm font-medium px-3 py-1.5 rounded-md {{ 'bg-blue-600 text-white' if lang != 'en' else 'bg-gray-200' }}">PL</a>
-        <a href="?lang=en" class="text-sm font-medium px-3 py-1.5 rounded-md {{ 'bg-blue-600 text-white' if lang == 'en' else 'bg-gray-200' }}">EN</a>
+        <a href="?lang=pl" class="text-sm font-medium px-3 py-1.5 rounded-md {{ 'bg-blue-600 text-white' if lang != 'en' else 'bg-gray-200 text-gray-800' }}">PL</a>
+        <a href="?lang=en" class="text-sm font-medium px-3 py-1.5 rounded-md {{ 'bg-blue-600 text-white' if lang == 'en' else 'bg-gray-200 text-gray-800' }}">EN</a>
         <a href="#waitlist" class="hidden sm:inline-flex bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition">
           {{ 'Dołącz do listy' if lang != 'en' else 'Join Waitlist' }}
         </a>
@@ -76,69 +96,65 @@
     {% if messages %}
       <div class="max-w-3xl mx-auto mt-6 px-5">
         {% for category, message in messages %}
-          <div class="p-4 rounded-lg text-white {{ 'bg-green-600' if category=='success' else 'bg-red-600' }}">
+          <div class="p-4 rounded-lg text-white {{ 'bg-green-600' if category in ['success', 'message'] else 'bg-red-600' }}">
             {{ message }}
           </div>
         {% endfor %}
       </div>
     {% endif %}
   {% endwith %}
-      <!-- Hero -->
-  <section class="hero-bg text-white pt-20 pb-32 md:pb-40 px-5 text-center relative overflow-hidden">
+
+  <!-- Hero -->
+  <section class="hero-bg text-white pt-20 pb-32 md:pb-44 px-5 text-center relative overflow-hidden">
     <div class="max-w-5xl mx-auto">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight drop-shadow-lg">
         Złap Pracę – aplikacja do zleceń i pracy
       </h1>
-      <p class="text-lg mt-4 opacity-90">
+      <p class="text-lg md:text-xl mt-4 opacity-95 max-w-3xl mx-auto">
         Łączymy klientów i zweryfikowanych fachowców poprzez aplikację i platformę online.
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-5">
-        <a href="#waitlist" class="bg-white text-blue-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+      <div class="flex flex-col sm:flex-row justify-center gap-5 mt-10">
+        <a href="#waitlist" class="bg-white text-blue-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-xl hover:shadow-2xl">
           {{ 'Dołącz do listy' if lang != 'en' else 'Join Waitlist' }}
         </a>
-        <a href="#investor" class="border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-blue-700 transition">
+        <a href="#investor" class="border-2 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-blue-700 transition shadow-lg">
           {{ 'Pitch Deck' if lang != 'en' else 'Investor Deck' }}
         </a>
       </div>
     </div>
   </section>
+
+  <!-- Short About -->
   <section class="py-16 px-5 max-w-5xl mx-auto text-lg text-gray-700">
-  <h2 class="text-3xl font-bold mb-6">Czym jest Złap Pracę?</h2>
-  <p class="mb-4">
-    Złap Pracę to aplikacja mobilna oraz platforma internetowa umożliwiająca szybkie znajdowanie pracy i zleceń w Twojej okolicy.
-  </p>
-  <p class="mb-4">
-    Dzięki Złap Pracę możesz znaleźć sprawdzonych fachowców lub zdobyć nowe zlecenia bez ryzyka i zbędnych formalności.
-  </p>
-  <p>
-    Platforma jest obecnie w fazie wdrożenia, a jej premiera planowana jest na 28 Czerwca 2026 r.
-  </p>
-  <p class="mb-4">
-    Oznaczenie „Złap Pracę” jest używane jako nazwa własna platformy dostępnej pod adresem zlapprace.pl.
-  </p>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Czym jest Złap Pracę?</h2>
+    <div class="prose prose-lg mx-auto">
+      <p>Złap Pracę to aplikacja mobilna oraz platforma internetowa umożliwiająca szybkie znajdowanie pracy i zleceń w Twojej okolicy.</p>
+      <p>Dzięki Złap Pracę możesz znaleźć sprawdzonych fachowców lub zdobyć nowe zlecenia bez ryzyka i zbędnych formalności.</p>
+      <p class="font-semibold">Premiera planowana na <span class="text-blue-600">28 czerwca 2026</span>.</p>
+    </div>
   </section>
 
   <!-- Problem -->
-  <section class="py-20 px-5 max-w-7xl mx-auto">
+  <section class="py-20 px-5 max-w-7xl mx-auto bg-white">
     <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
-      {{ 'Problem' if lang != 'en' else 'Problem' }}
+      {{ 'Problem' if lang != 'en' else 'The Problem' }}
     </h2>
     <p class="text-center text-xl text-gray-600 mb-16 max-w-4xl mx-auto">
-      {{ 'Rynek usług lokalnych jest rozdrobniony, offline i brakuje w nim zaufania. Obecny model nie działa ani dla klienta, ani dla fachowca.' if lang != 'en' else 'The local services market is fragmented, offline and lacks trust. The current model fails both clients and contractors.' }}
+      {{ 'Rynek usług lokalnych jest rozdrobniony, offline i brakuje w nim zaufania.' if lang != 'en' else 'The local services market is fragmented, offline and lacks trust.' }}
     </p>
 
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
-      <div class="card bg-white p-8 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">{{ 'Oszustwa i niska jakość' if lang != 'en' else 'Fraud & Poor Quality' }}</h3>
-        <p class="text-gray-600 text-lg">{{ 'Klienci ryzykują pieniądze za słabą usługę bez realnej reklamacji.' if lang != 'en' else 'Clients risk paying for low-quality work with no recourse.' }}</p>
+      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+        <h3 class="text-2xl font-semibold mb-4 text-red-700">Oszustwa i niska jakość</h3>
+        <p class="text-gray-600 text-lg">Klienci ryzykują pieniądze za słabą usługę bez realnej reklamacji.</p>
       </div>
-      <div class="card bg-white p-8 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">{{ 'Ryzyko prawne' if lang != 'en' else 'Legal Risk' }}</h3>
-        <p class="text-gray-600 text-lg">{{ 'Fachowcy narażeni na problemy z płatnościami, podatkami i ZUS-em.' if lang != 'en' else 'Contractors face payment issues and tax/legal uncertainty.' }}</p>
+      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+        <h3 class="text-2xl font-semibold mb-4 text-red-700">Ryzyko prawne</h3>
+        <p class="text-gray-600 text-lg">Fachowcy narażeni na problemy z płatnościami, podatkami i ZUS-em.</p>
       </div>
-      <div class="card bg-white p-8 rounded-2xl shadow-xl">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">{{ 'Brak efektywności' if lang != 'en' else 'Inefficiency' }}</h3>
-        <p class="text-gray-600 text-lg">{{ 'Trudno szybko znaleźć sprawdzonego i dostępnego wykonawcę.' if lang != 'en' else 'Finding verified services is slow and unreliable.' }}</p>
+      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+        <h3 class="text-2xl font-semibold mb-4 text-red-700">Brak efektywności</h3>
+        <p class="text-gray-600 text-lg">Trudno szybko znaleźć sprawdzonego i dostępnego wykonawcę.</p>
       </div>
     </div>
   </section>
@@ -147,28 +163,28 @@
   <section class="py-20 px-5 bg-gradient-to-b from-white to-blue-50">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
-        {{ 'Rozwiązanie' if lang != 'en' else 'Solution' }}
+        {{ 'Rozwiązanie' if lang != 'en' else 'The Solution' }}
       </h2>
       <p class="text-center text-xl text-gray-700 mb-16 max-w-4xl mx-auto">
-        {{ 'Złap Pracę usuwa ryzyko, automatyzuje legalność i pozwala skalować usługi lokalne.' if lang != 'en' else 'Złap Pracę removes risk, automates compliance and enables scalable local services.' }}
+        Złap Pracę usuwa ryzyko, automatyzuje legalność i pozwala skalować usługi lokalne.
       </p>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">{{ 'Zweryfikowani fachowcy' if lang != 'en' else 'Verified Contractors' }}</h3>
-          <p class="text-gray-600">{{ 'CEIDG + weryfikacja tożsamości' if lang != 'en' else 'CEIDG & identity verification' }}</p>
+          <h3 class="text-2xl font-semibold mb-4">Zweryfikowani fachowcy</h3>
+          <p class="text-gray-600">CEIDG + weryfikacja tożsamości</p>
         </div>
         <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">{{ 'Bezpieczne płatności' if lang != 'en' else 'Secure Payments' }}</h3>
-          <p class="text-gray-600">{{ 'Escrow – pieniądze dopiero po akceptacji' if lang != 'en' else 'Escrow – pay only after completion confirmation' }}</p>
+          <h3 class="text-2xl font-semibold mb-4">Bezpieczne płatności</h3>
+          <p class="text-gray-600">Escrow – pieniądze dopiero po akceptacji</p>
         </div>
         <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">{{ 'Legalne umowy' if lang != 'en' else 'Legal Contracts' }}</h3>
-          <p class="text-gray-600">{{ 'Umowy zlecenia dla osób bez działalności' if lang != 'en' else 'Contracts for non-registered contractors' }}</p>
+          <h3 class="text-2xl font-semibold mb-4">Legalne umowy</h3>
+          <p class="text-gray-600">Umowy zlecenia dla osób bez działalności</p>
         </div>
         <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">{{ 'AI Matching' if lang != 'en' else 'AI Matching' }}</h3>
-          <p class="text-gray-600">{{ 'Inteligentne dopasowanie zleceń do fachowców' if lang != 'en' else 'Intelligent job matching' }}</p>
+          <h3 class="text-2xl font-semibold mb-4">AI Matching</h3>
+          <p class="text-gray-600">Inteligentne dopasowanie zleceń do fachowców</p>
         </div>
       </div>
     </div>
@@ -181,43 +197,42 @@
     </h2>
 
     <div class="screenshot-container">
-      <img src="{{ url_for('static', filename='zlapprace1.png') }}" class="active" alt="Zrzut ekranu 1" loading="lazy" />
-      <img src="{{ url_for('static', filename='zlapprace2.png') }}" alt="Zrzut ekranu 2" loading="lazy" />
-      <img src="{{ url_for('static', filename='zlapprace3.png') }}" alt="Zrzut ekranu 3" loading="lazy" />
-      <img src="{{ url_for('static', filename='zlapprace4.png') }}" alt="Zrzut ekranu 4" loading="lazy" />
+      <img src="{{ url_for('static', filename='zlapprace1.png') }}" class="active" alt="Ekran główny aplikacji Złap Pracę" loading="lazy" />
+      <img src="{{ url_for('static', filename='zlapprace2.png') }}" alt="Lista zleceń w aplikacji" loading="lazy" />
+      <img src="{{ url_for('static', filename='zlapprace3.png') }}" alt="Profil fachowca" loading="lazy" />
+      <img src="{{ url_for('static', filename='zlapprace4.png') }}" alt="Proces składania zlecenia" loading="lazy" />
+    </div>
+
+    <div class="flex justify-center gap-6 mt-8">
+      <button onclick="prevScreenshot()" class="bg-gray-200 hover:bg-gray-300 p-4 rounded-full transition">←</button>
+      <button onclick="nextScreenshot()" class="bg-gray-200 hover:bg-gray-300 p-4 rounded-full transition">→</button>
     </div>
   </section>
 
-  <!-- Waitlist -->
+  <!-- Waitlist Form -->
   <section id="waitlist" class="py-20 px-5 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6">
         {{ 'Dołącz do listy oczekujących' if lang != 'en' else 'Join the Waitlist' }}
       </h2>
       <p class="text-xl text-gray-700 mb-10">
-        {{ 'Bądź wśród pierwszych, którzy przetestują platformę.' if lang != 'en' else 'Be among the first to test the platform.' }}
+        Bądź wśród pierwszych, którzy przetestują platformę.
       </p>
 
       <div class="bg-white p-8 md:p-10 rounded-2xl shadow-2xl">
         <form method="POST" action="{{ url_for('index', lang=lang) }}" class="space-y-6">
           <div>
-            <label class="block text-left font-medium mb-2">
-              {{ 'Imię i nazwisko' if lang != 'en' else 'Full name' }}
-            </label>
+            <label class="block text-left font-medium mb-2">{{ 'Imię i nazwisko' if lang != 'en' else 'Full name' }}</label>
             <input type="text" name="name" required class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="Jan Kowalski" />
           </div>
 
           <div>
-            <label class="block text-left font-medium mb-2">
-              {{ 'Email' if lang != 'en' else 'Email' }}
-            </label>
+            <label class="block text-left font-medium mb-2">{{ 'Email' if lang != 'en' else 'Email' }}</label>
             <input type="email" name="email" required class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="twoj@email.com" />
           </div>
 
           <div>
-            <label class="block text-left font-medium mb-2">
-              {{ 'Kim jesteś?' if lang != 'en' else 'You are' }}
-            </label>
+            <label class="block text-left font-medium mb-2">{{ 'Kim jesteś?' if lang != 'en' else 'You are' }}</label>
             <select name="type" required class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
               <option value="">{{ '-- wybierz --' if lang != 'en' else '-- select --' }}</option>
               <option value="klient">{{ 'Klient (szukam fachowca)' if lang != 'en' else 'Client (looking for contractors)' }}</option>
@@ -227,11 +242,11 @@
 
           <div class="flex items-start gap-3">
             <input type="checkbox" id="agree" name="agree" required class="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" />
-            <label for="agree" class="text-sm text-gray-600">
+            <label for="agree" class="text-sm text-gray-600 leading-relaxed">
               {{ 'Akceptuję' if lang != 'en' else 'I accept' }} 
-              <a href="#terms" class="text-blue-600 hover:underline">{{ 'Regulamin' if lang != 'en' else 'Terms' }}</a> 
+              <a href="#terms" class="text-blue-600 hover:underline font-medium">{{ 'Regulamin' if lang != 'en' else 'Terms' }}</a> 
               {{ 'i' if lang != 'en' else 'and' }} 
-              <a href="#privacy" class="text-blue-600 hover:underline">{{ 'Politykę prywatności' if lang != 'en' else 'Privacy Policy' }}</a>
+              <a href="#privacy" class="text-blue-600 hover:underline font-medium">{{ 'Politykę prywatności' if lang != 'en' else 'Privacy Policy' }}</a>
             </label>
           </div>
 
@@ -243,100 +258,59 @@
     </div>
   </section>
 
- <!-- Investor -->
-<section id="investor" class="py-24 px-5 bg-white">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-
-    <!-- LEFT -->
-    <div>
-      <h2 class="text-4xl font-bold mb-6">
-        {{ 'Dla inwestorów' if lang != 'en' else 'For Investors' }}
-      </h2>
-
-      <p class="text-xl text-gray-700 mb-6">
-        {{ 'Poznaj nasz pitch deck i zobacz, jak rewolucjonizujemy rynek usług lokalnych w Polsce.' if lang != 'en' else 'Check out our pitch deck and see how we\'re revolutionizing the local services market in Poland.' }}
-      </p>
-
-      <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100">
-
-        <p class="text-sm text-gray-500 mb-4">
-          {{ 'Podaj email, aby otrzymać hasło do Pitch Deck.' if lang != 'en' else 'Enter your email to receive the Pitch Deck password.' }}
+  <!-- Investor Section -->
+  <section id="investor" class="py-24 px-5 bg-white">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-4xl font-bold mb-6">{{ 'Dla inwestorów' if lang != 'en' else 'For Investors' }}</h2>
+        <p class="text-xl text-gray-700 mb-8">
+          Poznaj nasz pitch deck i zobacz, jak rewolucjonizujemy rynek usług lokalnych w Polsce.
         </p>
 
-        <form action="/investor-access" method="POST" class="space-y-5">
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100">
+          <p class="text-sm text-gray-500 mb-5">Podaj email, aby otrzymać hasło do Pitch Deck.</p>
 
-  <input 
-    type="email" 
-    name="email" 
-    required
-    placeholder="{{ 'Email inwestorski' if lang != 'en' else 'Investor email' }}"
-    class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg"
-  >
+          <form action="/investor-access" method="POST" class="space-y-6">
+            <input type="email" name="email" required placeholder="{{ 'Email inwestorski' if lang != 'en' else 'Investor email' }}"
+                   class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg" />
 
-  <!-- Checkbox poufności -->
-  <div class="flex items-start space-x-3 text-sm text-gray-600">
-    <input 
-      type="checkbox" 
-      name="confidentiality" 
-      id="confidentiality"
-      required
-      class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-    >
-   <label for="confidentiality" class="leading-relaxed">
-  {{ 
-    'Akceptuję poufność materiałów oraz ' if lang != 'en'
-    else 'I accept the confidentiality of materials and the '
-  }}
-  <a href="{{ url_for('confidentiality_policy', lang=lang) }}"
-     class="text-blue-600 font-semibold hover:underline">
-    {{ 'politykę poufności' if lang != 'en' else 'confidentiality policy' }}
-  </a>.
-  </label>
-  </div>
+            <div class="flex items-start space-x-3 text-sm text-gray-600">
+              <input type="checkbox" name="confidentiality" id="confidentiality" required class="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+              <label for="confidentiality" class="leading-relaxed">
+                {{ 'Akceptuję poufność materiałów oraz ' if lang != 'en' else 'I accept the confidentiality of materials and the ' }}
+                <a href="{{ url_for('confidentiality_policy', lang=lang) }}" class="text-blue-600 font-semibold hover:underline">
+                  {{ 'politykę poufności' if lang != 'en' else 'confidentiality policy' }}
+                </a>.
+              </label>
+            </div>
 
-  <button 
-    type="submit"
-    class="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md"
-  >
-    {{ 'Otrzymaj hasło' if lang != 'en' else 'Get Password' }}
-  </button>
+            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md">
+              {{ 'Otrzymaj hasło' if lang != 'en' else 'Get Password' }}
+            </button>
+          </form>
 
-</form>
+          <p class="text-xs text-gray-400 mt-5 text-center">Hasło zostanie wysłane na podany adres email.</p>
+        </div>
 
-        <p class="text-xs text-gray-400 mt-4">
-          {{ 'Hasło zostanie wysłane na podany adres email.' if lang != 'en' else 'The password will be sent to the provided email address.' }}
-        </p>
-
+        <div class="mt-8 text-center">
+          <a href="{{ url_for('static', filename='zlapprace.pdf') }}" class="text-blue-600 font-semibold hover:underline">
+            {{ 'Masz już hasło? Pobierz Pitch Deck' if lang != 'en' else 'Already have the password? Download Pitch Deck' }}
+          </a>
+        </div>
       </div>
 
-      <!-- Optional secondary link -->
-      <div class="mt-6">
-        <a href="{{ url_for('static', filename='zlapprace.pdf') }}"
-           class="text-blue-600 font-semibold hover:underline text-sm">
-          {{ 'Masz już hasło? Pobierz Pitch Deck' if lang != 'en' else 'Already have the password? Download Pitch Deck' }}
-        </a>
+      <div class="flex justify-center">
+        <img src="{{ url_for('static', filename='PD1.png') }}" alt="Podgląd pitch deck Złap Pracę" class="rounded-2xl shadow-2xl max-w-md w-full" loading="lazy" />
       </div>
-
     </div>
+  </section>
 
-    <!-- RIGHT -->
-    <div class="flex justify-center">
-      <img src="{{ url_for('static', filename='PD1.png') }}" 
-           alt="Investor deck preview" 
-           class="rounded-2xl shadow-2xl max-w-md w-full" 
-           loading="lazy" />
-    </div>
-
-  </div>
-</section>
-
-  <!-- Regulamin (tylko PL) -->
+  <!-- Regulamin -->
   <section id="terms" class="py-20 px-5 bg-blue-50">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-10">Regulamin</h2>
-      <div class="prose prose-lg max-w-none text-gray-800">
-        <p class="mb-6"><strong>Ostatnia aktualizacja: 16 lutego 2026 r.</strong></p>
-
+      <div class="prose prose-lg max-w-none text-gray-800 mx-auto">
+        <p class="mb-6 font-semibold">Ostatnia aktualizacja: 16 lutego 2026 r.</p>
         <ol class="list-decimal space-y-6">
           <li><strong>Postanowienia ogólne</strong><br>Niniejszy Regulamin określa zasady korzystania ze strony zlapprace.pl oraz zapisywania się na listę oczekujących.</li>
           <li><strong>Waitlista i dane osobowe</strong><br>Zapisując się podajesz imię, nazwisko i e-mail. Dane przetwarzane są w celu informowania o starcie platformy (podstawa: zgoda – art. 6 ust. 1 lit. a RODO).</li>
@@ -350,30 +324,30 @@
     </div>
   </section>
 
-  <!-- Polityka prywatności (tylko PL) -->
+  <!-- Polityka prywatności -->
   <section id="privacy" class="py-20 px-5 bg-white">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-10">Polityka prywatności</h2>
-      <div class="prose prose-lg max-w-none text-gray-800">
-        <p class="mb-6"><strong>Ostatnia aktualizacja: 16 lutego 2026 r.</strong></p>
+      <div class="prose prose-lg max-w-none text-gray-800 mx-auto">
+        <p class="mb-6 font-semibold">Ostatnia aktualizacja: 16 lutego 2026 r.</p>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-4">1. Administrator</h3>
-        <p>Marceli Kołakowski - Złap Pracę™, founders@zlapprace.pl</p>
+        <h3 class="text-2xl font-semibold mt-10 mb-4">1. Administrator</h3>
+        <p>Marceli Kołakowski – Złap Pracę™<br>founders@zlapprace.pl</p>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-4">2. Dane zbierane</h3>
-        <p>Imię, nazwisko, e-mail (na etapie waitlisty).</p>
+        <h3 class="text-2xl font-semibold mt-10 mb-4">2. Dane zbierane</h3>
+        <p>Imię, nazwisko, adres e-mail (na etapie listy oczekujących).</p>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-4">3. Cele przetwarzania</h3>
+        <h3 class="text-2xl font-semibold mt-10 mb-4">3. Cele przetwarzania</h3>
         <ul class="list-disc pl-6 space-y-2">
-          <li>Informowanie o starcie platformy – zgoda</li>
+          <li>Informowanie o starcie platformy – na podstawie zgody</li>
           <li>Analiza statystyczna (anonimowa) – prawnie uzasadniony interes</li>
         </ul>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-4">4. Twoje prawa</h3>
+        <h3 class="text-2xl font-semibold mt-10 mb-4">4. Twoje prawa</h3>
         <p>Dostęp, sprostowanie, usunięcie, cofnięcie zgody. Kontakt: support@zlapprace.pl</p>
 
-        <h3 class="text-2xl font-semibold mt-8 mb-4">5. Skarga</h3>
-        <p>Możesz złożyć skargę do Prezesa UODO (uodo.gov.pl).</p>
+        <h3 class="text-2xl font-semibold mt-10 mb-4">5. Skarga</h3>
+        <p>Możesz złożyć skargę do Prezesa UODO → <a href="https://uodo.gov.pl" class="text-blue-600 hover:underline">uodo.gov.pl</a></p>
       </div>
     </div>
   </section>
@@ -383,51 +357,47 @@
     <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
       <div>
         <h3 class="text-white text-2xl font-bold mb-6">Złap Pracę™</h3>
-        <p class="text-gray-400">
-          {{ 'Bezpieczne i legalne zlecanie usług lokalnych.' if lang != 'en' else 'Safe and legal local services marketplace.' }}
-        </p>
+        <p class="text-gray-400">Bezpieczne i legalne zlecanie usług lokalnych.</p>
       </div>
       <div>
-        <h3 class="text-white text-xl font-semibold mb-6">
-          {{ 'Kontakt' if lang != 'en' else 'Contact' }}
-        </h3>
+        <h3 class="text-white text-xl font-semibold mb-6">Kontakt</h3>
         <p class="mb-2">founders@zlapprace.pl</p>
         <p>+48 731 248 662</p>
       </div>
       <div>
-        <h3 class="text-white text-xl font-semibold mb-6">
-          {{ 'Linki' if lang != 'en' else 'Links' }}
-        </h3>
+        <h3 class="text-white text-xl font-semibold mb-6">Linki</h3>
         <ul class="space-y-3">
-          <li><a href="#terms" class="hover:text-white transition">
-            {{ 'Regulamin' if lang != 'en' else 'Terms' }}
-          </a></li>
-          <li><a href="#privacy" class="hover:text-white transition">
-            {{ 'Polityka prywatności' if lang != 'en' else 'Privacy Policy' }}
-          </a></li>
+          <li><a href="#terms" class="hover:text-white transition">Regulamin</a></li>
+          <li><a href="#privacy" class="hover:text-white transition">Polityka prywatności</a></li>
         </ul>
       </div>
     </div>
     <p class="text-center text-gray-500 mt-12 text-sm">
       © 2026 Złap Pracę™. Wszelkie prawa zastrzeżone.
-      Złap Pracę™ – nazwa platformy i aplikacji
     </p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Carousel script -->
   <script>
-    // Screenshot carousel
     let current = 0;
     const slides = document.querySelectorAll('.screenshot-container img');
+    const total = slides.length;
 
     function showSlide(n) {
       slides.forEach(slide => slide.classList.remove('active'));
-      current = (n + slides.length) % slides.length;
+      current = (n + total) % total;
       slides[current].classList.add('active');
     }
 
     function nextScreenshot() { showSlide(current + 1); }
     function prevScreenshot() { showSlide(current - 1); }
+
+    // auto-slide (opcjonalnie – możesz wyłączyć)
+    // setInterval(nextScreenshot, 5000);
+
+    // pokaż pierwszy slajd od razu
+    showSlide(0);
   </script>
+
 </body>
 </html>
