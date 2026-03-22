@@ -3,16 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Złap Pracę – Rewolucja w usługach lokalnych</title>
-  <meta name="description" content="Bezpieczne, legalne i skalowalne łączenie klientów z zweryfikowanymi fachowcami. Escrow, weryfikacja CEIDG, umowy zlecenia i inteligentne dopasowanie." />
+
+  <!-- SEO -->
+  <title>Złap Pracę – aplikacja do znajdowania pracy i zleceń | platforma usług 2026</title>
+  <meta name="description" content="Złap Pracę to aplikacja i platforma do znajdowania pracy oraz zleceń w Polsce. Znajdź fachowców lub zdobywaj zlecenia lokalnie. Dołącz do listy oczekujących." />
+  <meta name="keywords" content="praca, zlecenia, fachowcy, usługi lokalne, aplikacja praca, zlecenia Polska, znajdź fachowca" />
+  <link rel="canonical" href="https://zlapprace.pl" />
 
   <!-- Open Graph / Social -->
-  <meta property="og:title" content="Złap Pracę – Rewolucja w usługach lokalnych" />
-  <meta property="og:description" content="Bezpieczne zlecanie i wykonywanie usług – escrow, weryfikacja, umowy. Dołącz do listy oczekujących!" />
+  <meta property="og:title" content="Złap Pracę – aplikacja do znajdowania pracy i zleceń" />
+  <meta property="og:description" content="Złap Pracę to aplikacja do znajdowania pracy i zleceń. Znajdź fachowców lub zdobywaj zlecenia w swojej okolicy." />
   <meta property="og:image" content="{{ url_for('static', filename='Ikona1.png') }}" />
   <meta property="og:url" content="https://zlapprace.pl" />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- SEO: Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Złap Pracę",
+    "url": "https://zlapprace.pl",
+    "logo": "https://zlapprace.pl/static/Ikona1.png",
+    "description": "Platforma do znajdowania pracy i zleceń w Polsce",
+    "sameAs": []
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
@@ -33,6 +51,11 @@
   </style>
 </head>
 <body class="antialiased text-gray-900">
+
+  <!-- SEO: noscript -->
+  <noscript>
+    Złap Pracę – aplikacja do znajdowania pracy i zleceń w Polsce.
+  </noscript>
 
   <!-- Sticky Navbar -->
   <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
@@ -60,13 +83,19 @@
       </div>
     {% endif %}
   {% endwith %}
-
-  <!-- Hero -->
+      <!-- Hero -->
   <section class="hero-bg text-white pt-20 pb-32 md:pb-40 px-5 text-center relative overflow-hidden">
     <div class="max-w-5xl mx-auto">
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-        Złap Pracę
+        Złap Pracę – aplikacja do zleceń i pracy
       </h1>
+ 
+      <p class="text-xl sm:text-2xl md:text-3xl mb-10 max-w-3xl mx-auto opacity-90">
+        Łączymy klientów i zweryfikowanych fachowców w bezpieczny, legalny i skalowalny sposób.
+      </p>
+      <p class="text-lg mt-4 opacity-90">
+        Łączymy klientów i zweryfikowanych fachowców poprzez aplikację i platformę online.
+      </p>
       <p class="text-xl sm:text-2xl md:text-3xl mb-10 max-w-3xl mx-auto opacity-90">
         {{ 'Łączymy klientów i zweryfikowanych fachowców w bezpieczny, legalny i skalowalny sposób.' if lang != 'en' else 'Connecting clients and verified contractors safely, legally, and at scale.' }}
       </p>
@@ -80,6 +109,21 @@
         </a>
       </div>
     </div>
+  </section>
+  <section class="py-16 px-5 max-w-5xl mx-auto text-lg text-gray-700">
+  <h2 class="text-3xl font-bold mb-6">Czym jest Złap Pracę?</h2>
+  <p class="mb-4">
+    Złap Pracę to aplikacja mobilna oraz platforma internetowa umożliwiająca szybkie znajdowanie pracy i zleceń w Twojej okolicy.
+  </p>
+  <p class="mb-4">
+    Dzięki Złap Pracę możesz znaleźć sprawdzonych fachowców lub zdobyć nowe zlecenia bez ryzyka i zbędnych formalności.
+  </p>
+  <p>
+    Platforma jest obecnie w fazie wdrożenia, a jej premiera planowana jest na 28 Czerwca 2026 r.
+  </p>
+  <p class="mb-4">
+    Oznaczenie „Złap Pracę” jest używane jako nazwa własna platformy dostępnej pod adresem zlapprace.pl.
+  </p>
   </section>
 
   <!-- Problem -->
@@ -374,6 +418,7 @@
     </div>
     <p class="text-center text-gray-500 mt-12 text-sm">
       © 2026 Złap Pracę™. Wszelkie prawa zastrzeżone.
+      Złap Pracę™ – nazwa platformy i aplikacji
     </p>
   </footer>
 
