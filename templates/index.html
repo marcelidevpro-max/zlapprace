@@ -213,6 +213,106 @@
     </div>
   </section>
 
+  <!-- ====================== CENNik ====================== -->
+<section class="py-20 px-5 bg-gradient-to-b from-white to-blue-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        {{ 'Cennik' if lang != 'en' else 'Pricing' }}
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        {{ 'Transparentny i jeden z najtańszych modeli na polskim rynku.' if lang != 'en' 
+           else 'Transparent and one of the cheapest models on the Polish market.' }}
+      </p>
+      <p class="text-sm text-gray-500 mt-4">
+        {{ 'Ceny orientacyjne – finalna wersja przed 28 czerwca 2026' if lang != 'en' 
+           else 'Indicative prices – final version before June 28, 2026' }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+      <!-- BASIC -->
+      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-gray-300 hover:border-gray-400 transition-all">
+        <h3 class="text-2xl font-semibold mb-6">
+          {{ 'Basic' if lang != 'en' else 'Basic' }}
+        </h3>
+        
+        <div class="mb-8">
+          <span class="text-5xl font-bold">0</span>
+          <span class="text-2xl text-gray-400">zł/mc</span>
+        </div>
+
+        <ul class="space-y-4 text-gray-600 mb-10">
+          <li>✔ {{ 'Dostęp do wszystkich zleceń w okolicy' if lang != 'en' else 'Access to all jobs in your area' }}</li>
+          <li>✔ {{ 'Inteligentne dopasowanie AI' if lang != 'en' else 'AI job matching' }}</li>
+          <li>✔ {{ 'Prowizja 9% (tylko od fachowca)' if lang != 'en' else '9% commission (only from contractor)' }}</li>
+        </ul>
+
+        <a href="#waitlist" 
+           class="block w-full text-center py-4 border-2 border-blue-600 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition">
+          {{ 'Wybieram Basic' if lang != 'en' else 'Choose Basic' }}
+        </a>
+      </div>
+
+      <!-- PREMIUM – wyróżniony -->
+      <div class="card bg-white p-8 rounded-2xl shadow-2xl border-t-4 border-blue-600 relative scale-105 hover:scale-110 transition-all">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm font-bold px-6 py-1.5 rounded-full">
+          {{ 'NAJLEPSZY WYBÓR' if lang != 'en' else 'BEST CHOICE' }}
+        </div>
+        
+        <h3 class="text-2xl font-semibold mb-6 text-blue-700">
+          {{ 'Premium' if lang != 'en' else 'Premium' }}
+        </h3>
+        
+        <div class="mb-8">
+          <span class="text-5xl font-bold">79</span>
+          <span class="text-2xl text-gray-400">zł/mc</span>
+        </div>
+
+        <ul class="space-y-4 text-gray-600 mb-10">
+          <li>✔ {{ 'Prowizja obniżona do 6%' if lang != 'en' else 'Commission reduced to 6%' }}</li>
+          <li>✔ {{ 'Wyróżnienie profilu i ofert' if lang != 'en' else 'Profile and offer highlighting' }}</li>
+          <li>✔ {{ 'Priorytet w AI Matching' if lang != 'en' else 'Priority in AI Matching' }}</li>
+          <li>✔ {{ 'Szczegółowe statystyki zleceń' if lang != 'en' else 'Detailed job statistics' }}</li>
+          <li>✔ {{ 'Pierwsze 30 dni za 1 zł' if lang != 'en' else 'First 30 days for 1 zł' }}</li>
+        </ul>
+
+        <a href="#waitlist" 
+           class="block w-full text-center py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-md">
+          {{ 'Chcę Premium' if lang != 'en' else 'Get Premium' }}
+        </a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-emerald-500 hover:border-emerald-600 transition-all">
+        <h3 class="text-2xl font-semibold mb-6">
+          {{ 'Enterprise' if lang != 'en' else 'Enterprise' }}
+        </h3>
+        
+        <div class="mb-8">
+          <span class="text-5xl font-bold">299</span>
+          <span class="text-2xl text-gray-400">zł/mc</span>
+        </div>
+
+        <ul class="space-y-4 text-gray-600 mb-10">
+          <li>✔ {{ 'Prowizja od 5%' if lang != 'en' else 'Commission from 5%' }}</li>
+          <li>✔ {{ 'Wiele użytkowników w jednej firmie' if lang != 'en' else 'Multiple users per company' }}</li>
+          <li>✔ {{ 'Dedykowany opiekun i support' if lang != 'en' else 'Dedicated account manager & support' }}</li>
+          <li>✔ {{ 'Faktury VAT i raporty miesięczne' if lang != 'en' else 'VAT invoices and monthly reports' }}</li>
+          <li>✔ {{ 'Indywidualne warunki współpracy' if lang != 'en' else 'Custom terms' }}</li>
+        </ul>
+
+        <a href="#waitlist" 
+           class="block w-full text-center py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition">
+          {{ 'Dla większych firm' if lang != 'en' else 'For larger companies' }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+  
   <!-- Waitlist Form -->
   <section id="waitlist" class="py-20 px-5 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="max-w-3xl mx-auto text-center">
