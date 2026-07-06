@@ -128,71 +128,128 @@
     </div>
   </section>
 
-  <!-- Short About -->
-  <section class="py-16 px-5 max-w-5xl mx-auto text-lg text-gray-700">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Czym jest Złap Pracę?</h2>
-    <div class="prose prose-lg mx-auto">
-      <p>Złap Pracę to aplikacja mobilna oraz platforma internetowa umożliwiająca szybkie znajdowanie pracy i zleceń w Twojej okolicy.</p>
-      <p>Dzięki Złap Pracę możesz znaleźć sprawdzonych fachowców lub zdobyć nowe zlecenia bez ryzyka i zbędnych formalności.</p>
-      <p class="font-semibold">Premiera planowana na <span class="text-blue-600">28 czerwca 2026</span>.</p>
-    </div>
-  </section>
+<!-- Short About -->
+<section class="py-16 px-5 max-w-5xl mx-auto text-lg text-gray-700">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center" 
+        data-lang="pl">Czym jest Złap Pracę?</h2>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center hidden" 
+        data-lang="en">What is Złap Pracę?</h2>
 
-  <!-- Problem -->
-  <section class="py-20 px-5 max-w-7xl mx-auto bg-white">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
-      {{ 'Problem' if lang != 'en' else 'The Problem' }}
+    <div class="prose prose-lg mx-auto">
+        <p data-lang="pl">
+            Złap Pracę to aplikacja mobilna oraz platforma internetowa umożliwiająca szybkie znajdowanie pracy i zleceń w Twojej okolicy.
+        </p>
+        <p data-lang="en" class="hidden">
+            Złap Pracę is a mobile application and web platform that allows you to quickly find jobs and gigs in your area.
+        </p>
+
+        <p data-lang="pl">
+            Dzięki Złap Pracę możesz znaleźć sprawdzonych fachowców lub zdobyć nowe zlecenia bez ryzyka i zbędnych formalności.
+        </p>
+        <p data-lang="en" class="hidden">
+            With Złap Pracę you can find trusted professionals or get new gigs without risk and unnecessary formalities.
+        </p>
+
+        <p class="font-semibold" data-lang="pl">
+            Premiera planowana na <span class="text-blue-600">28 czerwca 2027</span>.
+        </p>
+        <p class="font-semibold hidden" data-lang="en">
+            Planned premiere on <span class="text-blue-600">June 28, 2027</span>.
+        </p>
+    </div>
+</section>
+
+<!-- Problem -->
+<section class="py-20 px-5 max-w-7xl mx-auto bg-white">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-6" data-lang="pl">
+        Problem
     </h2>
-    <p class="text-center text-xl text-gray-600 mb-16 max-w-4xl mx-auto">
-      {{ 'Rynek usług lokalnych jest rozdrobniony, offline i brakuje w nim zaufania.' if lang != 'en' else 'The local services market is fragmented, offline and lacks trust.' }}
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 hidden" data-lang="en">
+        The Problem
+    </h2>
+
+    <p class="text-center text-xl text-gray-600 mb-16 max-w-4xl mx-auto" data-lang="pl">
+        Rynek usług lokalnych jest rozdrobniony, offline i brakuje w nim zaufania.
+    </p>
+    <p class="text-center text-xl text-gray-600 mb-16 max-w-4xl mx-auto hidden" data-lang="en">
+        The local services market is fragmented, offline and lacks trust.
     </p>
 
     <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
-      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">Oszustwa i niska jakość</h3>
-        <p class="text-gray-600 text-lg">Klienci ryzykują pieniądze za słabą usługę bez realnej reklamacji.</p>
-      </div>
-      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">Ryzyko prawne</h3>
-        <p class="text-gray-600 text-lg">Fachowcy narażeni na problemy z płatnościami, podatkami i ZUS-em.</p>
-      </div>
-      <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
-        <h3 class="text-2xl font-semibold mb-4 text-red-700">Brak efektywności</h3>
-        <p class="text-gray-600 text-lg">Trudno szybko znaleźć sprawdzonego i dostępnego wykonawcę.</p>
-      </div>
-    </div>
-  </section>
+        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+            <h3 class="text-2xl font-semibold mb-4 text-red-700" data-lang="pl">Oszustwa i niska jakość</h3>
+            <h3 class="text-2xl font-semibold mb-4 text-red-700 hidden" data-lang="en">Scams and low quality</h3>
+            <p class="text-gray-600 text-lg" data-lang="pl">Klienci ryzykują pieniądze za słabą usługę bez realnej reklamacji.</p>
+            <p class="text-gray-600 text-lg hidden" data-lang="en">Customers risk money for poor service with no real complaint option.</p>
+        </div>
 
-  <!-- Solution -->
-  <section class="py-20 px-5 bg-gradient-to-b from-white to-blue-50">
+        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+            <h3 class="text-2xl font-semibold mb-4 text-red-700" data-lang="pl">Ryzyko prawne</h3>
+            <h3 class="text-2xl font-semibold mb-4 text-red-700 hidden" data-lang="en">Legal risk</h3>
+            <p class="text-gray-600 text-lg" data-lang="pl">Fachowcy narażeni na problemy z płatnościami, podatkami i ZUS-em.</p>
+            <p class="text-gray-600 text-lg hidden" data-lang="en">Professionals are exposed to problems with payments, taxes and social security (ZUS).</p>
+        </div>
+
+        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-red-500">
+            <h3 class="text-2xl font-semibold mb-4 text-red-700" data-lang="pl">Brak efektywności</h3>
+            <h3 class="text-2xl font-semibold mb-4 text-red-700 hidden" data-lang="en">Lack of efficiency</h3>
+            <p class="text-gray-600 text-lg" data-lang="pl">Trudno szybko znaleźć sprawdzonego i dostępnego wykonawcę.</p>
+            <p class="text-gray-600 text-lg hidden" data-lang="en">It's hard to quickly find a reliable and available contractor.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Solution -->
+<section class="py-20 px-5 bg-gradient-to-b from-white to-blue-50">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
-        {{ 'Rozwiązanie' if lang != 'en' else 'The Solution' }}
-      </h2>
-      <p class="text-center text-xl text-gray-700 mb-16 max-w-4xl mx-auto">
-        Złap Pracę usuwa ryzyko, automatyzuje legalność i pozwala skalować usługi lokalne.
-      </p>
+        <!-- Nagłówek -->
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-6" data-lang="pl">
+            Rozwiązanie
+        </h2>
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 hidden" data-lang="en">
+            The Solution
+        </h2>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">Zweryfikowani fachowcy</h3>
-          <p class="text-gray-600">CEIDG + weryfikacja tożsamości</p>
+        <!-- Podtytuł -->
+        <p class="text-center text-xl text-gray-700 mb-16 max-w-4xl mx-auto" data-lang="pl">
+            Złap Pracę usuwa ryzyko, automatyzuje legalność i pozwala skalować usługi lokalne.
+        </p>
+        <p class="text-center text-xl text-gray-700 mb-16 max-w-4xl mx-auto hidden" data-lang="en">
+            Złap Pracę removes risk, automates legality and allows scaling of local services.
+        </p>
+
+        <!-- Karty -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
+                <h3 class="text-2xl font-semibold mb-4" data-lang="pl">Zweryfikowani fachowcy</h3>
+                <h3 class="text-2xl font-semibold mb-4 hidden" data-lang="en">Verified professionals</h3>
+                <p class="text-gray-600" data-lang="pl">CEIDG + weryfikacja tożsamości</p>
+                <p class="text-gray-600 hidden" data-lang="en">CEIDG + identity verification</p>
+            </div>
+
+            <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
+                <h3 class="text-2xl font-semibold mb-4" data-lang="pl">Bezpieczne płatności</h3>
+                <h3 class="text-2xl font-semibold mb-4 hidden" data-lang="en">Secure payments</h3>
+                <p class="text-gray-600" data-lang="pl">Escrow – pieniądze dopiero po akceptacji</p>
+                <p class="text-gray-600 hidden" data-lang="en">Escrow – money released only after acceptance</p>
+            </div>
+
+            <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
+                <h3 class="text-2xl font-semibold mb-4" data-lang="pl">Legalne umowy</h3>
+                <h3 class="text-2xl font-semibold mb-4 hidden" data-lang="en">Legal contracts</h3>
+                <p class="text-gray-600" data-lang="pl">Umowy zlecenia dla osób bez działalności</p>
+                <p class="text-gray-600 hidden" data-lang="en">Contract agreements for people without a business</p>
+            </div>
+
+            <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
+                <h3 class="text-2xl font-semibold mb-4" data-lang="pl">AI Matching</h3>
+                <h3 class="text-2xl font-semibold mb-4 hidden" data-lang="en">AI Matching</h3>
+                <p class="text-gray-600" data-lang="pl">Inteligentne dopasowanie zleceń do fachowców</p>
+                <p class="text-gray-600 hidden" data-lang="en">Intelligent matching of jobs to professionals</p>
+            </div>
         </div>
-        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">Bezpieczne płatności</h3>
-          <p class="text-gray-600">Escrow – pieniądze dopiero po akceptacji</p>
-        </div>
-        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">Legalne umowy</h3>
-          <p class="text-gray-600">Umowy zlecenia dla osób bez działalności</p>
-        </div>
-        <div class="card bg-white p-8 rounded-2xl shadow-xl border-t-4 border-blue-600">
-          <h3 class="text-2xl font-semibold mb-4">AI Matching</h3>
-          <p class="text-gray-600">Inteligentne dopasowanie zleceń do fachowców</p>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
   <!-- Screenshots -->
   <section class="py-20 px-5 bg-gray-50">
@@ -225,8 +282,8 @@
            else 'Transparent and one of the cheapest models on the Polish market.' }}
       </p>
       <p class="text-sm text-gray-500 mt-4">
-        {{ 'Ceny orientacyjne – finalna wersja przed 28 czerwca 2026' if lang != 'en' 
-           else 'Indicative prices – final version before June 28, 2026' }}
+        {{ 'Ceny orientacyjne – finalna wersja przed 28 czerwca 2027' if lang != 'en' 
+           else 'Indicative prices – final version before June 28, 2027' }}
       </p>
     </div>
 
@@ -362,52 +419,73 @@
     </div>
   </section>
 
-  <!-- Investor Section -->
-  <section id="investor" class="py-24 px-5 bg-white">
+<!-- Investor Section -->
+<section id="investor" class="py-24 px-5 bg-white">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-      <div>
-        <h2 class="text-4xl font-bold mb-6">{{ 'Dla inwestorów' if lang != 'en' else 'For Investors' }}</h2>
-        <p class="text-xl text-gray-700 mb-8">
-          Poznaj nasz pitch deck i zobacz, jak rewolucjonizujemy rynek usług lokalnych w Polsce.
-        </p>
+        <div>
+            <!-- Nagłówek -->
+            <h2 class="text-4xl font-bold mb-6" data-lang="pl">Dla inwestorów</h2>
+            <h2 class="text-4xl font-bold mb-6 hidden" data-lang="en">For Investors</h2>
 
-        <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100">
-          <p class="text-sm text-gray-500 mb-5">Podaj email, aby otrzymać hasło do Pitch Deck.</p>
+            <p class="text-xl text-gray-700 mb-8" data-lang="pl">
+                Poznaj nasz pitch deck i zobacz, jak rewolucjonizujemy rynek usług lokalnych w Polsce.
+            </p>
+            <p class="text-xl text-gray-700 mb-8 hidden" data-lang="en">
+                Get to know our pitch deck and see how we are revolutionizing the local services market in Poland.
+            </p>
 
-          <form action="/investor-access" method="POST" class="space-y-6">
-            <input type="email" name="email" required placeholder="{{ 'Email inwestorski' if lang != 'en' else 'Investor email' }}"
-                   class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg" />
+            <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100">
+                <p class="text-sm text-gray-500 mb-5" data-lang="pl">Podaj email, aby otrzymać hasło do Pitch Deck.</p>
+                <p class="text-sm text-gray-500 mb-5 hidden" data-lang="en">Enter your email to receive the password to the Pitch Deck.</p>
 
-            <div class="flex items-start space-x-3 text-sm text-gray-600">
-              <input type="checkbox" name="confidentiality" id="confidentiality" required class="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
-              <label for="confidentiality" class="leading-relaxed">
-                {{ 'Akceptuję poufność materiałów oraz ' if lang != 'en' else 'I accept the confidentiality of materials and the ' }}
-                <a href="{{ url_for('confidentiality_policy', lang=lang) }}" class="text-blue-600 font-semibold hover:underline">
-                  {{ 'politykę poufności' if lang != 'en' else 'confidentiality policy' }}
-                </a>.
-              </label>
+                <form action="/investor-access" method="POST" class="space-y-6">
+                    <input type="email" name="email" required 
+                           placeholder="Email inwestorski" 
+                           data-lang-placeholder="pl"
+                           data-lang-placeholder-en="Investor email"
+                           class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg" />
+
+                    <div class="flex items-start space-x-3 text-sm text-gray-600">
+                        <input type="checkbox" name="confidentiality" id="confidentiality" required 
+                               class="mt-1 w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                        <label for="confidentiality" class="leading-relaxed">
+                            <span data-lang="pl">Akceptuję poufność materiałów oraz </span>
+                            <span data-lang="en" class="hidden">I accept the confidentiality of materials and the </span>
+                            <a href="{{ url_for('confidentiality_policy', lang=lang) }}" class="text-blue-600 font-semibold hover:underline">
+                                <span data-lang="pl">politykę poufności</span>
+                                <span data-lang="en" class="hidden">confidentiality policy</span>
+                            </a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md"
+                            data-lang="pl">Otrzymaj hasło</button>
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md hidden"
+                            data-lang="en">Get Password</button>
+                </form>
+
+                <p class="text-xs text-gray-400 mt-5 text-center" data-lang="pl">Hasło zostanie wysłane na podany adres email.</p>
+                <p class="text-xs text-gray-400 mt-5 text-center hidden" data-lang="en">The password will be sent to the provided email address.</p>
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md">
-              {{ 'Otrzymaj hasło' if lang != 'en' else 'Get Password' }}
-            </button>
-          </form>
-
-          <p class="text-xs text-gray-400 mt-5 text-center">Hasło zostanie wysłane na podany adres email.</p>
+            <div class="mt-8 text-center">
+                <a href="{{ url_for('static', filename='zlapprace.pdf') }}" class="text-blue-600 font-semibold hover:underline"
+                   data-lang="pl">Masz już hasło? Pobierz Pitch Deck</a>
+                <a href="{{ url_for('static', filename='zlapprace.pdf') }}" class="text-blue-600 font-semibold hover:underline hidden"
+                   data-lang="en">Already have the password? Download Pitch Deck</a>
+            </div>
         </div>
 
-        <div class="mt-8 text-center">
-          <a href="{{ url_for('static', filename='zlapprace.pdf') }}" class="text-blue-600 font-semibold hover:underline">
-            {{ 'Masz już hasło? Pobierz Pitch Deck' if lang != 'en' else 'Already have the password? Download Pitch Deck' }}
-          </a>
+        <div class="flex justify-center">
+            <img src="{{ url_for('static', filename='PD1.png') }}" 
+                 alt="Podgląd pitch deck Złap Pracę" 
+                 data-lang-alt="pl"
+                 data-lang-alt-en="Złap Pracę Pitch Deck preview"
+                 class="rounded-2xl shadow-2xl max-w-md w-full" 
+                 loading="lazy" />
         </div>
-      </div>
-
-      <div class="flex justify-center">
-        <img src="{{ url_for('static', filename='PD1.png') }}" alt="Podgląd pitch deck Złap Pracę" class="rounded-2xl shadow-2xl max-w-md w-full" loading="lazy" />
-      </div>
     </div>
-  </section>
+</section>
 
   <!-- Regulamin -->
   <section id="terms" class="py-20 px-5 bg-blue-50">
